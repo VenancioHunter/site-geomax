@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Painel — GeoMax</title>
+<link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="faixa">
+    <a class="marca" href="/">Geo<span>Max</span></a>
+    <nav>
+      <span class="miudo" id="quem"></span>
+      <a href="#" id="sair">Sair</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="faixa">
+
+    <div id="mensagem" role="alert"></div>
+
+    <!-- login ------------------------------------------------------- -->
+    <section id="area-entrar">
+      <p class="rotulo">Restrito</p>
+      <h1>Painel</h1>
+      <form id="form-entrar" style="max-width:420px" novalidate>
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input id="senha" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="botao largo" type="submit">Entrar</button>
+      </form>
+    </section>
+
+    <!-- painel ------------------------------------------------------ -->
+    <section id="area-painel" hidden>
+      <div class="abas" role="tablist">
+        <button class="aba atual" data-aba="assinantes">Assinantes</button>
+        <button class="aba" data-aba="pedidos">Pedidos</button>
+        <button class="aba" data-aba="produtos">Produtos</button>
+        <button class="aba" data-aba="preco">Preço</button>
+        <button class="aba" data-aba="avisos">Avisos</button>
+        <button class="aba" data-aba="admins">Administradores</button>
+      </div>
+
+      <!-- assinantes -->
+      <div class="painel" id="painel-assinantes">
+        <div class="numeros" id="resumo-assinantes"></div>
+
+        <div class="cartao" style="max-width:560px;margin-bottom:var(--e5)">
+          <h3 style="margin-top:0">Liberar uma conta na mão</h3>
+          <p class="miudo">
+            Para teste, cortesia ou cliente que pagou por fora. Não gera
+            cobrança nem nota — só libera o aplicativo.
+          </p>
+          <div class="campo metade">
+            <label for="liberar-quem">E-mail ou código da conta</label>
+            <input id="liberar-quem" placeholder="pessoa@exemplo.com">
+          </div>
+          <div class="campo metade">
+            <label for="liberar-dias">Dias</label>
+            <input id="liberar-dias" inputmode="numeric" value="30">
+          </div>
+          <label class="miudo" style="display:flex;gap:8px;align-items:center;margin-bottom:var(--e3)">
+            <input type="checkbox" id="liberar-teste" style="width:auto"> marcar como período de teste
+          </label>
+          <button class="botao" id="liberar-conta">Liberar acesso</button>
+        </div>
+        <div class="tabela" id="lista-assinantes"></div>
+      </div>
+
+      <!-- pedidos -->
+      <div class="painel" id="painel-pedidos" hidden>
+        <div class="numeros" id="resumo-pedidos"></div>
+        <div class="tabela" id="lista-pedidos"></div>
+      </div>
+
+      <!-- produtos -->
+      <div class="painel" id="painel-produtos" hidden>
+        <p class="miudo">
+          O que estiver aqui é o que a loja mostra e o preço que ela cobra.
+          Desmarcar "à venda" tira o produto da loja sem apagar o histórico.
+        </p>
+        <div id="lista-produtos"></div>
+        <div style="display:flex;gap:var(--e3);flex-wrap:wrap;margin-top:var(--e4)">
+          <button class="botao vazado" id="novo-produto">Adicionar produto</button>
+          <button class="botao" id="salvar-produtos">Salvar produtos</button>
+        </div>
+      </div>
+
+      <!-- avisos -->
+      <div class="painel" id="painel-avisos" hidden>
+        <p class="miudo">
+          Chega no celular mesmo com o aplicativo fechado. Só recebe quem já
+          entrou no app e permitiu notificação.
+        </p>
+
+        <div class="cartao" style="max-width:560px">
+          <div class="campo">
+            <label for="aviso-titulo">Título</label>
+            <input id="aviso-titulo" maxlength="60" placeholder="Nova versão disponível">
+          </div>
+          <div class="campo">
+            <label for="aviso-texto">Mensagem</label>
+            <input id="aviso-texto" maxlength="180" placeholder="Atualize o GeoMax para a versão nova.">
+          </div>
+          <div class="campo">
+            <label for="aviso-para">Para quem</label>
+            <input id="aviso-para" placeholder="deixe vazio para todos, ou informe o código da conta">
+            <p class="ajuda">Vazio manda para toda a base.</p>
+          </div>
+          <button class="botao" id="enviar-aviso">Enviar</button>
+        </div>
+
+        <div class="tabela" id="lista-avisos" style="margin-top:var(--e5)"></div>
+      </div>
+
+      <!-- administradores -->
+      <div class="painel" id="painel-admins" hidden>
+        <p class="miudo">
+          Quem está nesta lista entra no painel e pode liberar, bloquear e
+          alterar preço. A pessoa precisa já ter conta no GeoMax.
+        </p>
+
+        <div class="cartao" style="max-width:520px">
+          <div class="campo">
+            <label for="novo-admin">E-mail da pessoa</label>
+            <input id="novo-admin" type="email" placeholder="pessoa@exemplo.com">
+            <p class="ajuda">
+              Se o servidor ainda não tiver a conta de serviço configurada, use
+              o código da conta no lugar do e-mail.
+            </p>
+          </div>
+          <button class="botao" id="promover">Dar acesso ao painel</button>
+        </div>
+
+        <div class="tabela" id="lista-admins" style="margin-top:var(--e5)"></div>
+      </div>
+
+      <!-- preço -->
+      <div class="painel" id="painel-preco" hidden>
+        <div class="cartao" style="max-width:420px">
+          <p class="miudo" style="margin:0">Assinatura mensal, por profissional</p>
+          <div class="preco" id="preco-atual" style="font-size:40px">—</div>
+          <div class="campo" style="margin-top:var(--e4)">
+            <label for="novo-preco">Novo valor (R$)</label>
+            <input id="novo-preco" inputmode="decimal" placeholder="99,90">
+          </div>
+          <button class="botao" id="salvar-preco">Salvar preço</button>
+          <p class="ajuda">
+            Vale para <strong>novas</strong> assinaturas. Quem já assina continua
+            no valor contratado até você alterar a assinatura dele no Asaas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="faixa">
+    <span>Painel administrativo</span>
+    <span class="direita">GeoMax · Central Vazamentos</span>
+  </div>
+</footer>
+
+<script src="/js/conta-firebase.js"></script>
+<script src="/js/admin.js"></script>
+
+</body>
+</html>

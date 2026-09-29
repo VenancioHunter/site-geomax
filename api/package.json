@@ -1,0 +1,8 @@
+{
+  "name": "geomax-api",
+  "version": "1.0.0",
+  "description": "Assinatura do GeoMax: criacao de cobranca no Asaas e webhook.",
+  "private": true,
+  "engines": { "node": ">=18" },
+  "dependencies": {}
+}

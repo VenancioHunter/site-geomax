@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assinar o GeoMax</title>
+<link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="faixa">
+    <a class="marca" href="/">Geo<span>Max</span></a>
+    <nav>
+      <a href="/produtos.html">Equipamento</a>
+      <a href="/conta.html">Entrar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="faixa coluna">
+
+    <nav class="trilha" aria-label="Etapas">
+      <span id="etapa-1" class="atual">1. Sua conta</span>
+      <span id="etapa-2">2. Pagamento</span>
+      <span id="etapa-3">3. Pronto</span>
+    </nav>
+
+    <div id="mensagem" role="alert"></div>
+
+    <!-- ETAPA 1 ------------------------------------------------------ -->
+    <section id="passo-conta">
+      <h1 style="font-size:32px;max-width:none">Crie a sua conta</h1>
+      <p class="lide">
+        É com ela que você entra no aplicativo. Use um e-mail que você abra no
+        celular: a recuperação de senha passa por ele.
+      </p>
+
+      <form id="form-conta" novalidate>
+        <div class="campo">
+          <label for="nome">Nome completo</label>
+          <input id="nome" autocomplete="name" required>
+        </div>
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input id="senha" type="password" autocomplete="new-password" required minlength="6">
+          <p class="ajuda">No mínimo 6 caracteres.</p>
+        </div>
+
+        <button class="botao largo" type="submit">Continuar</button>
+        <p class="ajuda" style="text-align:center;margin-top:var(--e3)">
+          Já tem conta? <a href="/conta.html">Entre aqui</a>.
+        </p>
+      </form>
+    </section>
+
+    <!-- ETAPA 2 ------------------------------------------------------ -->
+    <section id="passo-cobranca" hidden>
+      <h1 style="font-size:32px;max-width:none">Pagamento</h1>
+
+      <div class="cartao" style="margin-bottom:var(--e5)">
+        <div class="preco" style="font-size:34px">R$ 99,90 <small>/mês</small></div>
+        <p class="miudo" style="margin:4px 0 0">Renova sozinho no cartão. Cancele quando quiser.</p>
+      </div>
+
+      <form id="form-cobranca" novalidate>
+        <fieldset>
+          <legend>Quem paga</legend>
+          <div class="campo">
+            <label for="documento">CPF ou CNPJ</label>
+            <input id="documento" inputmode="numeric" autocomplete="off" required>
+          </div>
+          <div class="campo">
+            <label for="telefone">Celular</label>
+            <input id="telefone" inputmode="tel" autocomplete="tel" required>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Cartão de crédito</legend>
+          <div class="campo">
+            <label for="cartao-numero">Número do cartão</label>
+            <input id="cartao-numero" inputmode="numeric" autocomplete="cc-number"
+                   placeholder="0000 0000 0000 0000" required>
+          </div>
+          <div class="campo">
+            <label for="cartao-nome">Nome impresso no cartão</label>
+            <input id="cartao-nome" autocomplete="cc-name" required>
+          </div>
+          <div class="campo metade">
+            <label for="cartao-validade">Validade</label>
+            <input id="cartao-validade" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AAAA" required>
+          </div>
+          <div class="campo metade">
+            <label for="cartao-cvv">Código</label>
+            <input id="cartao-cvv" inputmode="numeric" autocomplete="cc-csc" placeholder="000" required>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Endereço da fatura</legend>
+          <div class="campo metade">
+            <label for="cep">CEP</label>
+            <input id="cep" inputmode="numeric" autocomplete="postal-code" required>
+          </div>
+          <div class="campo metade">
+            <label for="numero-endereco">Número</label>
+            <input id="numero-endereco" autocomplete="address-line2" required>
+          </div>
+        </fieldset>
+
+        <button class="botao largo" type="submit">Assinar por R$ 99,90/mês</button>
+        <p class="ajuda" style="margin-top:var(--e3)">
+          A cobrança se repete todo mês no cartão até você cancelar. Os dados do
+          cartão vão direto ao sistema de pagamento e não ficam guardados aqui.
+        </p>
+      </form>
+    </section>
+
+    <!-- ETAPA 3 ------------------------------------------------------ -->
+    <section id="passo-pagar" hidden>
+      <h1 style="font-size:32px;max-width:none">Assinatura criada</h1>
+      <div class="ok" id="aviso-pagamento"></div>
+
+      <div class="cartao">
+        <h3>O que fazer agora</h3>
+        <ol style="padding-left:20px;color:var(--texto-medio)">
+          <li>Instale o GeoMax no celular.</li>
+          <li>Entre com o mesmo e-mail e senha desta conta.</li>
+          <li>Ligue o sensor pela interface USB e comece a medir.</li>
+        </ol>
+        <a class="botao vazado" href="/conta.html">Ver minha assinatura</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="faixa">
+    <a href="/privacidade.html">Privacidade</a>
+    <a href="/termos.html">Termos de uso</a>
+    <a href="/excluir-conta.html">Excluir conta</a>
+    <span class="direita">GeoMax · Central Vazamentos</span>
+  </div>
+</footer>
+
+<script src="/js/conta-firebase.js"></script>
+<script src="/js/formulario.js"></script>
+<script>
+const mensagem = document.getElementById('mensagem')
+const passoConta = document.getElementById('passo-conta')
+const passoCobranca = document.getElementById('passo-cobranca')
+const passoPagar = document.getElementById('passo-pagar')
+
+Formulario.ligarMascaras()
+
+function avisar (texto, tipo) {
+  mensagem.innerHTML = texto ? '<div class="' + (tipo || 'erro') + '">' + texto + '</div>' : ''
+  if (texto) mensagem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+}
+
+function irParaEtapa (n) {
+  const secoes = [passoConta, passoCobranca, passoPagar]
+  secoes.forEach((secao, i) => { secao.hidden = i !== n - 1 })
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById('etapa-' + i).className = i === n ? 'atual' : (i < n ? 'feita' : '')
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+// Quem já entrou pula a etapa da conta: recarregar a página no meio do
+// processo não pode obrigar a criar outra conta.
+if (Conta.sessao()) irParaEtapa(2)
+
+document.getElementById('form-conta').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const botao = e.target.querySelector('button')
+  avisar('')
+
+  const senha = document.getElementById('senha')
+  if (senha.value.length < 6) {
+    return Formulario.erroNoCampo(senha, 'A senha precisa de pelo menos 6 caracteres.')
+  }
+  Formulario.erroNoCampo(senha, null)
+
+  botao.disabled = true
+  botao.textContent = 'Criando…'
+  try {
+    await Conta.criarConta(
+      document.getElementById('nome').value.trim(),
+      document.getElementById('email').value.trim(),
+      senha.value
+    )
+    irParaEtapa(2)
+    document.getElementById('documento').focus()
+  } catch (erro) {
+    avisar(erro.message)
+  } finally {
+    botao.disabled = false
+    botao.textContent = 'Continuar'
+  }
+})
+
+function montarPedido (sessao) {
+  const validade = (document.getElementById('cartao-validade').value || '').split('/')
+  return {
+    nome: (document.getElementById('nome').value || sessao.email).trim(),
+    cpfCnpj: document.getElementById('documento').value,
+    telefone: document.getElementById('telefone').value,
+    cartao: {
+      nome: document.getElementById('cartao-nome').value.trim(),
+      numero: document.getElementById('cartao-numero').value,
+      mes: (validade[0] || '').trim(),
+      ano: (validade[1] || '').trim(),
+      cvv: document.getElementById('cartao-cvv').value
+    },
+    endereco: {
+      cep: document.getElementById('cep').value,
+      numero: document.getElementById('numero-endereco').value
+    }
+  }
+}
+
+document.getElementById('form-cobranca').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const botao = e.target.querySelector('button')
+  avisar('')
+
+  // Validação antes de sair da página: erro de digitação apontado no campo
+  // certo poupa uma ida ao servidor e uma mensagem genérica.
+  const documento = document.getElementById('documento')
+  const numeros = Formulario.digitos(documento.value)
+  if (numeros.length === 11 && !Formulario.cpfValido(numeros)) {
+    return Formulario.erroNoCampo(documento, 'Confira o CPF: os dígitos não batem.')
+  }
+  if (numeros.length !== 11 && numeros.length !== 14) {
+    return Formulario.erroNoCampo(documento, 'Informe um CPF ou um CNPJ completo.')
+  }
+  Formulario.erroNoCampo(documento, null)
+
+  const validade = document.getElementById('cartao-validade')
+  if (!/^\d{2}\/\d{4}$/.test(validade.value)) {
+    return Formulario.erroNoCampo(validade, 'Use o formato MM/AAAA, por exemplo 05/2031.')
+  }
+  Formulario.erroNoCampo(validade, null)
+
+  botao.disabled = true
+  botao.textContent = 'Processando…'
+  try {
+    const token = await Conta.token()
+    if (!token) throw new Error('Sua sessão expirou. Entre de novo.')
+
+    const r = await fetch('/api/criar-assinatura', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+      body: JSON.stringify(montarPedido(Conta.sessao()))
+    })
+    const dados = await r.json()
+    if (!r.ok) throw new Error(dados.erro || 'Não foi possível criar a assinatura.')
+
+    document.getElementById('aviso-pagamento').textContent =
+      'Assinatura criada no ' + (dados.cartao || 'cartão') + '. A cobrança se ' +
+      'repete todo mês, e o aplicativo libera assim que o pagamento for confirmado.'
+    irParaEtapa(3)
+  } catch (erro) {
+    avisar(erro.message)
+  } finally {
+    botao.disabled = false
+    botao.textContent = 'Assinar por R$ 99,90/mês'
+  }
+})
+</script>
+
+</body>
+</html>

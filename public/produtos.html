@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipamento — GeoMax</title>
+<link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="faixa">
+    <a class="marca" href="/">Geo<span>Max</span></a>
+    <nav>
+      <a href="/assinar.html">Assinar</a>
+      <a href="/conta.html">Minha conta</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="faixa">
+  <p class="rotulo">Loja</p>
+  <h1 style="max-width:none">Equipamento</h1>
+  <p class="lide">
+    O aplicativo precisa de um sensor e de uma interface de áudio. Venda avulsa,
+    sem relação com a assinatura — comprar aqui não assina, e assinar não
+    obriga a comprar.
+  </p>
+
+  <div id="mensagem"></div>
+
+  <div id="catalogo" class="colunas"></div>
+
+  <div class="resumo-fixo" id="barra-resumo" hidden>
+    <span id="barra-itens" class="miudo"></span>
+    <span class="total" id="barra-total"></span>
+    <button class="botao" id="ir-para-dados">Continuar</button>
+  </div>
+
+  <section id="resumo" hidden>
+    <h2>Seu pedido</h2>
+    <div class="cartao">
+      <p id="resumo-itens" style="margin:0"></p>
+      <p class="preco" id="resumo-total" style="margin:8px 0 0"></p>
+    </div>
+
+    <h2>Seus dados</h2>
+    <form id="form-compra">
+      <label for="nome">Nome completo</label>
+      <input id="nome" autocomplete="name" required>
+
+      <label for="email">E-mail</label>
+      <input id="email" type="email" autocomplete="email" required>
+
+      <label for="documento">CPF ou CNPJ</label>
+      <input id="documento" inputmode="numeric" required>
+
+      <label for="telefone">Celular</label>
+      <input id="telefone" inputmode="tel" autocomplete="tel" required>
+
+      <h2>Entrega</h2>
+
+      <label for="cep">CEP</label>
+      <input id="cep" inputmode="numeric" required>
+
+      <label for="endereco">Endereço</label>
+      <input id="endereco" autocomplete="street-address" required>
+
+      <label for="numero">Número</label>
+      <input id="numero" required>
+
+      <label for="complemento">Complemento</label>
+      <input id="complemento">
+
+      <label for="cidade">Cidade e estado</label>
+      <input id="cidade" required>
+
+      <h2>Pagamento</h2>
+
+      <label for="forma">Forma</label>
+      <select id="forma">
+        <option value="CREDIT_CARD">Cartão de crédito</option>
+        <option value="PIX">Pix</option>
+      </select>
+
+      <div id="campos-cartao">
+        <label for="cartao-nome">Nome impresso no cartão</label>
+        <input id="cartao-nome" autocomplete="cc-name">
+
+        <label for="cartao-numero">Número do cartão</label>
+        <input id="cartao-numero" inputmode="numeric" autocomplete="cc-number">
+
+        <label for="cartao-validade">Validade (MM/AAAA)</label>
+        <input id="cartao-validade" inputmode="numeric" autocomplete="cc-exp" placeholder="05/2031">
+
+        <label for="cartao-cvv">Código de segurança</label>
+        <input id="cartao-cvv" inputmode="numeric" autocomplete="cc-csc">
+      </div>
+
+      <p style="margin-top:20px">
+        <button class="botao" type="submit">Finalizar compra</button>
+      </p>
+    </form>
+  </section>
+
+  <section id="pronto" hidden>
+    <h2>Pedido registrado</h2>
+    <div class="ok" id="pronto-texto"></div>
+    <p><a id="pronto-link" class="botao" href="#" target="_blank" rel="noopener" hidden>Abrir o pagamento</a></p>
+    <p style="font-size:14px;color:var(--texto-fraco)">
+      Você recebe a confirmação por e-mail. A entrega é combinada em seguida,
+      pelo telefone informado.
+    </p>
+  </section>
+  </div>
+</main>
+
+<footer>
+  <div class="faixa">
+    <a href="/privacidade.html">Privacidade</a>
+    <a href="/termos.html">Termos de uso</a>
+    <a href="/excluir-conta.html">Excluir conta</a>
+    <span class="direita">GeoMax · Central Vazamentos</span>
+  </div>
+</footer>
+
+<script src="/js/formulario.js"></script>
+<script src="/js/produtos.js"></script>
+
+</body>
+</html>

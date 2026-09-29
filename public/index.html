@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GeoMax — o geofone no seu celular</title>
+<meta name="description" content="O GeoMax lê o seu sensor de geofone pelo celular: filtra o ruído do solo, mostra a assinatura de vazamento e ajuda a cravar onde cavar.">
+<link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="faixa">
+    <a class="marca" href="/">Geo<span>Max</span></a>
+    <nav>
+      <a href="#como" class="oculto-telefone">Como funciona</a>
+      <a href="#plano" class="oculto-telefone">Preço</a>
+      <a href="/produtos.html">Equipamento</a>
+      <a href="/conta.html">Entrar</a>
+      <a href="/assinar.html" class="botao" style="padding:9px 16px;font-size:15px">Assinar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="faixa heroi">
+    <div>
+      <p class="rotulo">Pesquisa de vazamento</p>
+      <h1>O geofone que já está no seu bolso</h1>
+      <p class="lide">
+        Ligue o seu sensor ao celular e o GeoMax faz o resto: filtra o ruído do
+        solo, mede quanto aquele som se parece com vazamento e mostra a curva
+        subir enquanto você caminha sobre a tubulação.
+      </p>
+      <div class="acoes">
+        <a class="botao" href="/assinar.html">Assinar por R$ 99,90/mês</a>
+        <a class="botao vazado" href="#como">Ver como funciona</a>
+      </div>
+      <div class="provas">
+        <div><b>0–100</b>assinatura de vazamento</div>
+        <div><b>4</b>filtros ajustados em campo</div>
+        <div><b>60 s</b>de histórico na tela</div>
+      </div>
+    </div>
+
+    <!-- A tela do app desenhada à mão: mostra o produto sem depender de
+         captura de tela, que ficaria desatualizada a cada versão. -->
+    <div aria-hidden="true">
+      <svg viewBox="0 0 320 560" width="100%" style="max-width:320px;display:block;margin:0 auto">
+        <rect x="8" y="8" width="304" height="544" rx="38" fill="#0b1219" stroke="#222a34" stroke-width="2"/>
+        <rect x="20" y="20" width="280" height="520" rx="30" fill="#080b0f"/>
+
+        <text x="44" y="56" fill="#8a9ba8" font-size="12" font-family="Arial">13:42</text>
+        <text x="236" y="56" fill="#8a9ba8" font-size="12" font-family="Arial">USB · 84%</text>
+
+        <rect x="36" y="72" width="248" height="56" rx="14" fill="none" stroke="#22d3a5"/>
+        <circle cx="56" cy="100" r="5" fill="#22d3a5"/>
+        <text x="72" y="96" fill="#22d3a5" font-size="14" font-weight="bold" font-family="Arial">Sensor conectado</text>
+        <text x="72" y="114" fill="#8a9ba8" font-size="11" font-family="Arial">Fone no ouvido · pode caminhar</text>
+
+        <rect x="36" y="142" width="248" height="150" rx="16" fill="#141c25" stroke="#222a34"/>
+        <text x="52" y="168" fill="#8a9ba8" font-size="10" font-family="Arial" letter-spacing="1.4">ASSINATURA DE VAZAMENTO</text>
+        <text x="52" y="230" fill="#22d3a5" font-size="58" font-weight="bold" font-family="Arial">78</text>
+        <text x="122" y="230" fill="#22d3a5" font-size="20" font-weight="bold" font-family="Arial">%</text>
+        <text x="52" y="262" fill="#8a9ba8" font-size="11" font-family="Arial">acima do ponto anterior (54%)</text>
+
+        <rect x="222" y="178" width="46" height="13" rx="4" fill="#141b24"/>
+        <rect x="222" y="196" width="46" height="13" rx="4" fill="#141b24"/>
+        <rect x="222" y="214" width="46" height="13" rx="4" fill="#ef385b"/>
+        <rect x="222" y="232" width="46" height="13" rx="4" fill="#ef9f1d"/>
+        <rect x="222" y="250" width="46" height="13" rx="4" fill="#22d3a5"/>
+        <rect x="222" y="268" width="46" height="13" rx="4" fill="#22d3a5"/>
+
+        <rect x="36" y="304" width="248" height="104" rx="16" fill="#141c25" stroke="#222a34"/>
+        <text x="52" y="328" fill="#8a9ba8" font-size="10" font-family="Arial" letter-spacing="1.4">ÚLTIMO MINUTO</text>
+        <polyline points="52,392 74,388 96,384 118,378 140,380 162,366 184,352 206,340 228,326 250,314 268,308"
+                  fill="none" stroke="#22d3a5" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <rect x="36" y="424" width="58" height="52" rx="12" fill="none" stroke="#22d3a5" stroke-width="2"/>
+        <text x="50" y="446" fill="#22d3a5" font-size="10" font-family="Arial">Filtro</text>
+        <text x="60" y="466" fill="#22d3a5" font-size="17" font-weight="bold" font-family="Arial">1</text>
+        <rect x="100" y="424" width="58" height="52" rx="12" fill="#141c25" stroke="#222a34"/>
+        <text x="114" y="446" fill="#8a9ba8" font-size="10" font-family="Arial">Filtro</text>
+        <text x="124" y="466" fill="#eef2f5" font-size="17" font-weight="bold" font-family="Arial">2</text>
+        <rect x="164" y="424" width="58" height="52" rx="12" fill="#141c25" stroke="#222a34"/>
+        <text x="178" y="446" fill="#8a9ba8" font-size="10" font-family="Arial">Filtro</text>
+        <text x="188" y="466" fill="#eef2f5" font-size="17" font-weight="bold" font-family="Arial">3</text>
+        <rect x="228" y="424" width="56" height="52" rx="12" fill="#141c25" stroke="#222a34"/>
+        <text x="242" y="446" fill="#8a9ba8" font-size="10" font-family="Arial">Filtro</text>
+        <text x="252" y="466" fill="#eef2f5" font-size="17" font-weight="bold" font-family="Arial">4</text>
+
+        <rect x="36" y="492" width="248" height="44" rx="14" fill="#18be92"/>
+        <text x="132" y="520" fill="#08120f" font-size="15" font-weight="bold" font-family="Arial">Escutando</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="faixa" id="como">
+    <p class="rotulo">Como funciona</p>
+    <h2>Três passos, e o resto é caminhar</h2>
+    <div class="passos" style="margin-top:var(--e5);max-width:720px">
+      <div class="passo">
+        <div>
+          <h3>Ligue o sensor ao celular</h3>
+          <p class="miudo">Uma interface de áudio USB entre o P10 do sensor e a
+          porta do celular. O app reconhece sozinho e mostra a taxa de captura.</p>
+        </div>
+      </div>
+      <div class="passo">
+        <div>
+          <h3>Escolha o filtro do terreno</h3>
+          <p class="miudo">Quatro configurações prontas, ajustadas em obra, uma
+          para cada tipo de tubo e de solo. Sem menu de ajuste no meio da rua.</p>
+        </div>
+      </div>
+      <div class="passo">
+        <div>
+          <h3>Caminhe sobre a tubulação</h3>
+          <p class="miudo">A assinatura sobe conforme você chega perto. Compare
+          pontos vizinhos e cave onde o número for maior.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa">
+    <p class="rotulo">O que o app faz</p>
+    <h2>Medir, e não só amplificar</h2>
+    <div class="grade duas" style="margin-top:var(--e5)">
+      <div class="cartao">
+        <div class="icone"><svg viewBox="0 0 24 24"><path d="M3 12h3l3-8 4 16 3-8h5"/></svg></div>
+        <h3>Assinatura de vazamento</h3>
+        <p class="miudo">Um número de 0 a 100 que combina três propriedades do
+        ruído de vazamento: som contínuo, de banda larga e acima do chão
+        silencioso ao redor. Não é medidor de volume.</p>
+      </div>
+      <div class="cartao">
+        <div class="icone"><svg viewBox="0 0 24 24"><path d="M4 18V8m5 10V5m5 13v-7m5 7V9"/></svg></div>
+        <h3>Histórico do último minuto</h3>
+        <p class="miudo">A curva mostra a subida enquanto você anda. O pico
+        aparece na tela antes de o ouvido ter certeza.</p>
+      </div>
+      <div class="cartao">
+        <div class="icone"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8v8m14-8v8"/></svg></div>
+        <h3>Escuta separada da medição</h3>
+        <p class="miudo">Você amplifica o quanto quiser no fone sem alterar o
+        número: o ganho muda a escuta, nunca a medida.</p>
+      </div>
+      <div class="cartao">
+        <div class="icone"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <h3>Funciona sem internet</h3>
+        <p class="miudo">Vala, rua sem sinal, área rural. A assinatura é
+        conferida de tempos em tempos, não a cada uso.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa" id="plano">
+    <div class="cartao plano">
+      <div>
+        <p class="rotulo">Assinatura</p>
+        <div class="preco">R$ 99,90 <small>/mês por profissional</small></div>
+        <p class="miudo" style="margin-top:var(--e3)">
+          No cartão de crédito, com renovação automática. Cancele quando quiser:
+          o acesso continua até o fim do período já pago.
+        </p>
+        <div class="acoes" style="margin-top:var(--e4)">
+          <a class="botao" href="/assinar.html">Assinar agora</a>
+          <a class="botao vazado" href="/conta.html">Já sou assinante</a>
+        </div>
+      </div>
+      <div>
+        <ul class="inclui">
+          <li>Aplicativo completo, sem limite de medições</li>
+          <li>Os quatro filtros de campo</li>
+          <li>Atualizações incluídas</li>
+          <li>Uso sem internet</li>
+          <li>Suporte por e-mail</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa">
+    <p class="rotulo">Equipamento</p>
+    <h2>O app não ouve sozinho</h2>
+    <p class="lide" style="margin-bottom:var(--e5)">
+      É preciso um sensor de geofone com saída P10, uma interface de áudio USB e
+      um fone fechado. Se você já trabalha com geofone, provavelmente só falta a
+      interface.
+    </p>
+    <a class="botao vazado" href="/produtos.html">Ver equipamento</a>
+  </section>
+
+  <section class="faixa">
+    <div class="aviso">
+      <strong>Revise antes de publicar:</strong> os textos desta página foram
+      escritos a partir das conversas de desenvolvimento. Confira cada promessa
+      antes de o site ir ao ar — principalmente as que falam de alcance e
+      precisão.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="faixa">
+    <a href="/privacidade.html">Privacidade</a>
+    <a href="/termos.html">Termos de uso</a>
+    <a href="/excluir-conta.html">Excluir conta</a>
+    <span class="direita">GeoMax · Central Vazamentos</span>
+  </div>
+</footer>
+
+</body>
+</html>

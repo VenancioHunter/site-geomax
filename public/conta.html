@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minha conta — GeoMax</title>
+<link rel="stylesheet" href="/css/estilo.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="faixa">
+    <a class="marca" href="/">Geo<span>Max</span></a>
+    <nav>
+      <a href="/produtos.html">Equipamento</a>
+      <a href="/conta.html">Minha conta</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="faixa coluna">
+  <h1>Minha conta</h1>
+  <div id="mensagem"></div>
+
+  <section id="area-entrar">
+    <p class="lide">Entre com a conta que você usa no aplicativo.</p>
+
+    <form id="form-entrar" novalidate>
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" autocomplete="current-password" required>
+      </div>
+
+      <button class="botao largo" type="submit">Entrar</button>
+
+      <p class="ajuda" style="text-align:center;margin-top:var(--e3)">
+        <a href="#" id="esqueci">Esqueci minha senha</a> ·
+        <a href="/assinar.html">Criar conta</a>
+      </p>
+    </form>
+  </section>
+
+  <section id="area-conta" hidden>
+    <div class="cartao">
+      <p class="miudo" style="margin:0">Conta</p>
+      <p id="conta-email" style="margin:4px 0 0;font-size:18px;font-weight:700"></p>
+    </div>
+
+    <div class="cartao">
+      <p class="miudo" style="margin:0 0 var(--e2)">Assinatura</p>
+      <p id="assinatura-selo" style="margin:0"></p>
+      <p id="assinatura-detalhe" style="color:var(--texto-fraco)"></p>
+      <p id="assinatura-acao"></p>
+    </div>
+
+    <h2>Conta</h2>
+    <div style="display:flex;gap:var(--e3);flex-wrap:wrap">
+      <button class="botao vazado" id="trocar-senha">Trocar a senha</button>
+      <button class="botao vazado" id="sair">Sair</button>
+    </div>
+
+    <h2>Excluir conta</h2>
+    <p class="miudo">
+      Apaga a conta, os dados de acesso e o vínculo com a assinatura. Cobranças
+      em aberto precisam ser canceladas antes, e o histórico financeiro
+      permanece no sistema de cobrança pelo prazo que a lei exige.
+    </p>
+    <p><button class="botao perigo" id="excluir">Excluir minha conta</button></p>
+  </section>
+  </div>
+</main>
+
+<footer>
+  <div class="faixa">
+    <a href="/privacidade.html">Privacidade</a>
+    <a href="/termos.html">Termos de uso</a>
+    <a href="/excluir-conta.html">Excluir conta</a>
+    <span class="direita">GeoMax · Central Vazamentos</span>
+  </div>
+</footer>
+
+<script src="/js/conta-firebase.js"></script>
+<script>
+const mensagem = document.getElementById('mensagem')
+const areaEntrar = document.getElementById('area-entrar')
+const areaConta = document.getElementById('area-conta')
+
+function avisar (texto, tipo) {
+  mensagem.innerHTML = texto ? '<div class="' + (tipo || 'erro') + '">' + texto + '</div>' : ''
+}
+
+const ROTULOS = {
+  ativa: ['ativa', 'Assinatura ativa'],
+  teste: ['ativa', 'Período de teste'],
+  vencida: ['vencida', 'Pagamento em atraso'],
+  aguardando_pagamento: ['vencida', 'Aguardando pagamento'],
+  cancelada: ['cancelada', 'Assinatura cancelada']
+}
+
+function porExtenso (iso) {
+  if (!iso) return '—'
+  const d = new Date(iso.length <= 10 ? iso + 'T12:00:00Z' : iso)
+  return d.toLocaleDateString('pt-BR')
+}
+
+async function mostrarConta () {
+  const sessao = Conta.sessao()
+  if (!sessao) {
+    areaEntrar.hidden = false
+    areaConta.hidden = true
+    return
+  }
+
+  areaEntrar.hidden = true
+  areaConta.hidden = false
+  document.getElementById('conta-email').textContent = sessao.email
+
+  const assinatura = await Conta.minhaAssinatura()
+  const selo = document.getElementById('assinatura-selo')
+  const detalhe = document.getElementById('assinatura-detalhe')
+  const acao = document.getElementById('assinatura-acao')
+
+  if (!assinatura) {
+    selo.innerHTML = '<span class="selo cancelada">sem assinatura</span>'
+    detalhe.textContent = 'Esta conta ainda não tem assinatura.'
+    acao.innerHTML = '<a class="botao" href="/assinar.html">Assinar</a>'
+    return
+  }
+
+  const [classe, rotulo] = ROTULOS[assinatura.status] || ['cancelada', assinatura.status]
+  selo.innerHTML = '<span class="selo ' + classe + '">' + rotulo + '</span>'
+
+  detalhe.textContent = assinatura.validoAte
+    ? 'O aplicativo funciona até ' + porExtenso(assinatura.validoAte) + '.'
+    : 'Assim que o pagamento for confirmado, o aplicativo libera sozinho.'
+
+  acao.innerHTML = assinatura.status === 'ativa'
+    ? '<span style="font-size:14px;color:var(--texto-fraco)">Para cancelar, escreva para o suporte. O acesso continua até a data acima.</span>'
+    : '<a class="botao" href="/assinar.html">Ver cobrança</a>'
+}
+
+document.getElementById('form-entrar').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  avisar('')
+  const botao = e.target.querySelector('button')
+  botao.disabled = true
+  try {
+    await Conta.entrar(email.value.trim(), senha.value)
+    await mostrarConta()
+  } catch (erro) {
+    avisar(erro.message)
+  } finally {
+    botao.disabled = false
+  }
+})
+
+document.getElementById('esqueci').addEventListener('click', async (e) => {
+  e.preventDefault()
+  const destino = (document.getElementById('email').value || '').trim()
+  if (!destino) return avisar('Escreva o e-mail antes.')
+  try {
+    await Conta.recuperarSenha(destino)
+    avisar('Enviamos um link de redefinição para ' + destino + '.', 'ok')
+  } catch (erro) {
+    avisar(erro.message)
+  }
+})
+
+document.getElementById('trocar-senha').addEventListener('click', async () => {
+  const sessao = Conta.sessao()
+  if (!sessao) return
+  try {
+    await Conta.recuperarSenha(sessao.email)
+    avisar('Enviamos um link de troca de senha para ' + sessao.email + '.', 'ok')
+  } catch (erro) {
+    avisar(erro.message)
+  }
+})
+
+document.getElementById('sair').addEventListener('click', () => {
+  Conta.sair()
+  location.reload()
+})
+
+document.getElementById('excluir').addEventListener('click', async () => {
+  // Confirmação dupla de propósito: excluir conta não tem volta, e o botão
+  // fica na mesma tela que a pessoa usa todo mês.
+  if (!confirm('Excluir a conta apaga o acesso ao aplicativo. Continuar?')) return
+  if (!confirm('Tem certeza? Esta ação não pode ser desfeita.')) return
+  try {
+    await Conta.excluirConta()
+    avisar('Conta excluída.', 'ok')
+    setTimeout(() => { location.href = '/' }, 1500)
+  } catch (erro) {
+    avisar(erro.message)
+  }
+})
+
+mostrarConta()
+</script>
+
+</body>
+</html>

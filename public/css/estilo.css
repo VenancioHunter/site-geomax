@@ -1,0 +1,504 @@
+/*
+ * Sistema visual do site GeoMax.
+ *
+ * Mesma paleta do aplicativo, para quem chega do app não sentir que mudou de
+ * empresa. Escala de espaçamento em múltiplos de 4, tipografia em cinco
+ * tamanhos, e nada de sombra colorida ou gradiente decorativo: a única cor
+ * viva é o verde, e ele significa ação.
+ */
+
+:root {
+  --fundo: #080b0f;
+  --superficie: #131b24;
+  --cartao-topo: #151d26;
+  --cartao-base: #101720;
+  --borda: #222a34;
+  --borda-forte: #2e3947;
+  --texto: #eef2f5;
+  --texto-medio: #b3bfc9;
+  --texto-fraco: #8a9ba8;
+  --verde: #22d3a5;
+  --verde-escuro: #18be92;
+  --verde-fraco: rgba(34, 211, 165, 0.12);
+  --ambar: #ef9f1d;
+  --vermelho: #ef385b;
+
+  --e1: 4px; --e2: 8px; --e3: 12px; --e4: 16px;
+  --e5: 24px; --e6: 32px; --e7: 48px; --e8: 72px;
+
+  --raio: 14px;
+  --raio-g: 20px;
+  --largura: 1080px;
+  --texto-largura: 62ch;
+}
+
+* { box-sizing: border-box; }
+
+/* display:flex/grid nos componentes vence o atributo hidden; sem esta regra,
+   a barra de resumo aparecia com o carrinho vazio. */
+[hidden] { display: none !important; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--verde); text-underline-offset: 3px; }
+
+/* Foco visível em tudo: o formulário de cartão é usado no teclado. */
+:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ------------------------------------------------------------- estrutura */
+
+/*
+ * Só centraliza. O atalho "margin: 0 auto" zerava as margens de cima e de
+ * baixo - e, por ser seletor de classe, vencia o espaçamento entre seções.
+ * Era isso que colava um bloco no outro.
+ */
+.faixa {
+  max-width: var(--largura);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--e5);
+}
+
+/* Coluna única, para as telas de formulário: tudo com a mesma largura, do
+   indicador de etapas ao botão. Formulário mais largo que o resto era o que
+   deixava a página torta. */
+.faixa.coluna { max-width: 560px; }
+.faixa.coluna form,
+.faixa.coluna .cartao { max-width: none; }
+
+main { padding: var(--e7) 0 var(--e8); }
+
+section + section { margin-top: var(--e8); }
+
+/* ---------------------------------------------------------------- topo */
+
+header.topo {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(8, 11, 15, 0.86);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--borda);
+}
+
+header.topo .faixa {
+  display: flex;
+  align-items: center;
+  gap: var(--e5);
+  height: 64px;
+}
+
+.marca {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--texto);
+  text-decoration: none;
+}
+.marca span { color: var(--verde); }
+
+header.topo nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--e5);
+  font-size: 15px;
+}
+header.topo nav a { color: var(--texto-medio); text-decoration: none; }
+header.topo nav a:hover { color: var(--texto); }
+header.topo nav a.botao { color: #08120f; }
+
+/* --------------------------------------------------------- tipografia */
+
+h1 {
+  font-size: clamp(32px, 5vw, 50px);
+  line-height: 1.08;
+  letter-spacing: -1.2px;
+  margin: 0 0 var(--e4);
+}
+/* Só o título do herói é estreito; nas páginas de texto ele usa a largura toda. */
+.heroi h1 { max-width: 18ch; }
+
+h2 {
+  font-size: clamp(22px, 3vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin: 0 0 var(--e3);
+}
+
+h3 { font-size: 18px; margin: 0 0 var(--e2); letter-spacing: -0.2px; }
+
+/*
+ * Ritmo vertical das páginas de texto (privacidade, termos, conta, loja):
+ * cada H2 abre um bloco novo e precisa de ar antes. Quando o H2 vem logo
+ * depois de um rótulo ou do H1, esse ar sobraria.
+ */
+main > .faixa > h2,
+main > .faixa > section > h2,
+section > h2 { margin-top: var(--e6); }
+
+.rotulo + h2,
+h1 + h2,
+legend + h2 { margin-top: 0; }
+
+main > .faixa > form { margin-top: var(--e5); }
+
+/* Só fora da grade: dentro dela, a margem empurrava cada cartão para baixo do
+   vizinho e a linha ficava desalinhada. Na grade, quem separa é o gap. */
+main > .faixa > .cartao + .cartao,
+main > .faixa > section > .cartao + .cartao { margin-top: var(--e4); }
+
+p { margin: 0 0 var(--e4); max-width: var(--texto-largura); }
+
+.lide { font-size: clamp(17px, 2.2vw, 20px); color: var(--texto-medio); }
+
+.rotulo {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: var(--e2);
+}
+
+.miudo { font-size: 14px; color: var(--texto-fraco); }
+
+/* --------------------------------------------------------------- herói */
+
+.heroi {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--e7);
+  align-items: center;
+}
+
+.heroi .acoes { display: flex; flex-wrap: wrap; gap: var(--e3); margin-top: var(--e5); }
+
+.provas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e5);
+  margin-top: var(--e6);
+  padding-top: var(--e5);
+  border-top: 1px solid var(--borda);
+  font-size: 14px;
+  color: var(--texto-fraco);
+}
+.provas b { display: block; color: var(--texto); font-size: 20px; letter-spacing: -0.4px; }
+
+/* ------------------------------------------------------------- cartões */
+
+.cartao {
+  background: linear-gradient(var(--cartao-topo), var(--cartao-base));
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-g);
+  padding: var(--e5);
+}
+
+.grade {
+  display: grid;
+  gap: var(--e4);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/*
+ * Conjunto de quatro: duas colunas em vez de deixar o último cartão sozinho
+ * numa linha, com três quartos de vazio ao lado.
+ */
+.grade.duas { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 720px) { .grade.duas { grid-template-columns: 1fr; } }
+
+.icone {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border-radius: 11px;
+  background: var(--verde-fraco);
+  margin-bottom: var(--e3);
+}
+.icone svg { width: 20px; height: 20px; stroke: var(--verde); fill: none; stroke-width: 1.8; }
+
+/* -------------------------------------------------------------- passos */
+
+.passos { counter-reset: passo; display: grid; gap: var(--e4); }
+.passo {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--e4);
+  align-items: start;
+}
+.passo::before {
+  counter-increment: passo;
+  content: counter(passo);
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--borda-forte);
+  color: var(--verde);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------- preço */
+
+.plano {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--e6);
+  align-items: center;
+}
+
+.preco {
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--texto);
+  line-height: 1;
+}
+.preco small { font-size: 16px; font-weight: 500; color: var(--texto-fraco); letter-spacing: 0; }
+
+.inclui { list-style: none; padding: 0; margin: var(--e4) 0 0; }
+.inclui li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--e2);
+  margin-bottom: var(--e2);
+  color: var(--texto-medio);
+}
+.inclui li::before { content: '✓'; color: var(--verde); font-weight: 700; }
+
+/* -------------------------------------------------------------- botões */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e2);
+  border: 0;
+  border-radius: var(--raio);
+  padding: 14px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  color: #08120f;
+  background: linear-gradient(var(--verde), var(--verde-escuro));
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+.botao:hover { filter: brightness(1.06); }
+.botao:active { transform: translateY(1px); }
+.botao[disabled] { opacity: 0.55; cursor: progress; filter: none; }
+
+.botao.vazado {
+  background: transparent;
+  color: var(--verde);
+  border: 1.5px solid var(--borda-forte);
+}
+.botao.vazado:hover { border-color: var(--verde); }
+
+.botao.perigo { background: transparent; color: var(--vermelho); border: 1.5px solid rgba(239,56,91,0.5); }
+.botao.largo { width: 100%; }
+
+/* ---------------------------------------------------------- formulário */
+
+form { max-width: 480px; }
+
+.campo { margin-bottom: var(--e4); }
+.campo.metade { display: inline-block; width: calc(50% - 6px); }
+.campo.metade + .campo.metade { margin-left: 12px; }
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto-medio);
+}
+
+input, select {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: var(--raio);
+  border: 1px solid var(--borda-forte);
+  background: #0e151d;
+  color: var(--texto);
+  font-size: 16px;
+  font-family: inherit;
+}
+input::placeholder { color: #55626e; }
+input:focus, select:focus { border-color: var(--verde); outline: none; box-shadow: 0 0 0 3px var(--verde-fraco); }
+input[aria-invalid='true'] { border-color: var(--vermelho); }
+
+.ajuda { font-size: 13px; color: var(--texto-fraco); margin-top: 6px; }
+.erro-campo { font-size: 13px; color: var(--vermelho); margin-top: 6px; }
+
+fieldset { border: 0; padding: 0; margin: 0 0 var(--e5); }
+legend { padding: 0; font-size: 14px; font-weight: 700; color: var(--texto-fraco);
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: var(--e3); }
+
+/* ------------------------------------------------------------- avisos */
+
+.aviso, .erro, .ok {
+  border-radius: var(--raio);
+  padding: 14px 16px;
+  margin-bottom: var(--e4);
+  font-size: 15px;
+  border: 1px solid;
+}
+.aviso { background: rgba(239,159,29,0.1); border-color: rgba(239,159,29,0.35); color: #f7c26a; }
+.erro { background: rgba(239,56,91,0.1); border-color: rgba(239,56,91,0.35); color: #ff8ba3; }
+.ok { background: var(--verde-fraco); border-color: rgba(34,211,165,0.35); color: var(--verde); }
+
+.selo {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.selo.ativa { background: var(--verde-fraco); color: var(--verde); }
+.selo.vencida { background: rgba(239,159,29,0.14); color: var(--ambar); }
+.selo.cancelada { background: rgba(239,56,91,0.14); color: #ff8ba3; }
+
+/* ------------------------------------------------------------- etapas */
+
+.trilha {
+  display: flex;
+  gap: var(--e2);
+  margin-bottom: var(--e6);
+  font-size: 13px;
+  color: var(--texto-fraco);
+}
+.trilha span {
+  flex: 1;
+  padding-top: var(--e2);
+  border-top: 2px solid var(--borda);
+}
+.trilha span.atual { color: var(--verde); border-top-color: var(--verde); font-weight: 700; }
+.trilha span.feita { color: var(--texto-medio); border-top-color: var(--verde-escuro); }
+
+/* --------------------------------------------------------------- listas */
+
+ul.lista, main ol {
+  padding-left: 22px;
+  max-width: var(--texto-largura);
+  color: var(--texto-medio);
+  margin: 0 0 var(--e4);
+}
+ul.lista li, main ol li { margin-bottom: var(--e2); }
+ul.lista li::marker, main ol li::marker { color: var(--verde); }
+
+/* Mesma grade da página inicial, com o nome que as páginas antigas usam. */
+.colunas {
+  display: grid;
+  gap: var(--e4);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin: var(--e5) 0;
+}
+
+/* -------------------------------------------------------------- loja */
+
+.produto { display: flex; flex-direction: column; }
+.produto .preco { font-size: 28px; margin: var(--e3) 0; }
+.produto p { flex: 1; font-size: 15px; color: var(--texto-fraco); }
+.produto.escolhido { border-color: var(--verde); box-shadow: 0 0 0 1px var(--verde) inset; }
+
+.resumo-fixo {
+  position: sticky;
+  bottom: var(--e4);
+  background: var(--superficie);
+  border: 1px solid var(--borda-forte);
+  border-radius: var(--raio-g);
+  padding: var(--e4) var(--e5);
+  display: flex;
+  align-items: center;
+  gap: var(--e4);
+  flex-wrap: wrap;
+  margin-top: var(--e5);
+  /* Sombra para a barra flutuar sobre o cartão que passa por baixo dela. */
+  box-shadow: 0 -10px 24px rgba(8, 11, 15, 0.9);
+}
+.resumo-fixo .total { font-size: 26px; font-weight: 800; letter-spacing: -0.6px; margin-left: auto; }
+
+/* ------------------------------------------------------------- rodapé */
+
+footer {
+  border-top: 1px solid var(--borda);
+  padding: var(--e6) 0 var(--e7);
+  color: var(--texto-fraco);
+  font-size: 14px;
+}
+footer .faixa { display: flex; gap: var(--e5); flex-wrap: wrap; align-items: center; }
+footer a { color: var(--texto-fraco); text-decoration: none; }
+footer a:hover { color: var(--texto); }
+footer .direita { margin-left: auto; }
+
+/* ------------------------------------------------------------ telefone */
+
+@media (max-width: 860px) {
+  .heroi, .plano { grid-template-columns: 1fr; gap: var(--e5); }
+  main { padding: var(--e6) 0 var(--e7); }
+  section + section { margin-top: var(--e7); }
+  header.topo nav { gap: var(--e3); font-size: 14px; }
+  header.topo nav a.oculto-telefone { display: none; }
+  .campo.metade { width: 100%; margin-left: 0 !important; }
+  .provas { gap: var(--e4); }
+}
+
+/* ------------------------------------------------------------- painel */
+
+.abas { display: flex; gap: var(--e2); flex-wrap: wrap; margin-bottom: var(--e5); }
+.aba {
+  border: 1px solid var(--borda-forte);
+  background: transparent;
+  color: var(--texto-medio);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+.aba.atual { border-color: var(--verde); color: var(--verde); background: var(--verde-fraco); }
+
+.numeros { display: flex; gap: var(--e5); flex-wrap: wrap; margin-bottom: var(--e5); }
+.numero { font-size: 13px; color: var(--texto-fraco); }
+.numero b { display: block; font-size: 26px; color: var(--texto); letter-spacing: -0.6px; }
+
+.tabela { display: grid; gap: var(--e2); }
+
+/* Cada registro é um bloco de quatro colunas; no telefone vira uma coluna
+   só, porque tabela de verdade não cabe em 375 px. */
+.linha {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: var(--e4);
+  align-items: center;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: var(--e4);
+}
+.linha .acoes-linha { display: flex; gap: var(--e2); flex-wrap: wrap; justify-content: flex-end; }
+.linha .acoes-linha .botao { padding: 8px 14px; font-size: 14px; }
+
+@media (max-width: 900px) {
+  .linha { grid-template-columns: 1fr; }
+  .linha .acoes-linha { justify-content: flex-start; }
+}

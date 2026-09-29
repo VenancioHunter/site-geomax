@@ -1,0 +1,13 @@
+{
+  "navigationFallback": { "rewrite": "/index.html", "exclude": ["/api/*", "*.css", "*.js"] },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Content-Security-Policy": "default-src 'self'; connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://geomax-c3f78-default-rtdb.firebaseio.com; img-src 'self' data:; style-src 'self' 'unsafe-inline'"
+  },
+  "routes": [
+    { "route": "/api/asaas-webhook", "allowedRoles": ["anonymous"] },
+    { "route": "/api/*", "allowedRoles": ["anonymous"] }
+  ],
+  "responseOverrides": { "404": { "rewrite": "/index.html" } }
+}

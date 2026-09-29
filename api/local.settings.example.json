@@ -1,0 +1,19 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "",
+
+    "ASAAS_URL": "https://api-sandbox.asaas.com/v3",
+    "ASAAS_CHAVE": "coloque-aqui-a-chave-do-sandbox",
+    "ASAAS_WEBHOOK_TOKEN": "invente-uma-senha-longa-e-repita-no-painel-do-asaas",
+
+    "ASSINATURA_VALOR": "99.90",
+    "ASSINATURA_DESCRICAO": "GeoMax — assinatura mensal",
+    "DIAS_TOLERANCIA": "5",
+
+    "FIREBASE_DB_URL": "https://geomax-c3f78-default-rtdb.firebaseio.com",
+    "FIREBASE_API_KEY": "AIzaSyBs2J-71wp82OrqbAej1cwtnnlsDwf4Nq0",
+    "FIREBASE_SERVICE_ACCOUNT": "{\"type\":\"service_account\", ... o JSON inteiro em uma linha, com as aspas escapadas ... }"
+  }
+}
